@@ -8,6 +8,7 @@ public class EncDecClient{
             Socket s=new Socket("localhost",5000);
             DataInputStream dis=new DataInputStream(s.getInputStream());
             DataOutputStream dos=new DataOutputStream(s.getOutputStream());
+            System.out.println("Enter any text file");
             BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
             while(!(msg1.equalsIgnoreCase("Exit"))){
             System.out.println("Client Enter Message");
