@@ -20,11 +20,11 @@ public class GuiDemo2 implements ActionListener{
     frm.setVisible(true);
     frm.setLocationRelativeTo(null);
     b1.addActionListener(this);
-     b2.addActionListener(this);
+    b2.addActionListener(this);
   }
-public static void main(String args[]){
+  public static void main(String args[]){
    GuiDemo2 obj=new GuiDemo2(); 
-}
+  }
 
 public void actionPerformed(ActionEvent e){
     if(e.getSource()==b1)
