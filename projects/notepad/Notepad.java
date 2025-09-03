@@ -5,8 +5,8 @@ public class Notepad implements ActionListener{
     Frame frm;
     TextArea tr;
     MenuBar mbar;
-    Menu file,edit,view,submenu;
-    MenuItem newtab,newWindow,open,recent,save,saveAs,saveAll,pageSetup,print,closeTab,closeWind,exit,statusbar,wordwrap,undo,cut,copy,paste,delete,serAndBing,find,findNex,findPre,replace,goAndto,selAll,timeAndDate,font;
+    Menu file,edit,format,view,help,submenu;
+    MenuItem newtab,newWindow,open,save,saveAs,pageSetup,print,exit,statusbar,wordwrap,undo,cut,copy,paste,delete,serAndBing,find,findNex,findPre,replace,goAndto,selAll,timeAndDate,font,vHelp,sendFeed,aboutNot;
     Notepad(){
     frm=new Frame("Untitled:Notepad");
     tr=new TextArea("This is a menu and submenu example",50,170,TextArea.SCROLLBARS_BOTH);
@@ -18,31 +18,23 @@ public class Notepad implements ActionListener{
     
     // file
     newtab=new MenuItem("New tab    Ctrl+N");
-    newWindow=new MenuItem("New window    Ctrl+shift+N");
-    open=new MenuItem("open    Ctrl+o");
-    recent=new MenuItem("Recent");
+    newWindow=new MenuItem("New Window    Ctrl+shift+N");
+    open=new MenuItem("open...    Ctrl+o");
     save=new MenuItem("save    Ctrl+s");
     saveAs=new MenuItem("save as    Ctrl+Shift+s");
-    saveAll=new MenuItem("save all   Ctrl+Alt+s");
     pageSetup=new MenuItem("page setup");
     print=new MenuItem("print    Ctrl+p");
-    closeTab=new MenuItem("close tab    Ctrl+w");
-    closeWind=new MenuItem("close Window    Ctrl+shift+w");
     exit=new MenuItem("exit    Ctrl+x");  
 
     file.add(newtab);
     file.add(newWindow);
     file.add(open);
-    file.add(recent);
     file.add(save);
     file.add(saveAs);
-    file.add(saveAll);
     file.addSeparator();
     file.add(pageSetup);
     file.add(print);
     file.addSeparator();
-    file.add(closeTab);
-    file.add(closeWind);
     file.add(exit);
 
 
@@ -60,9 +52,9 @@ public class Notepad implements ActionListener{
     goAndto=new MenuItem("Go to      Ctrl+G");
     selAll=new MenuItem("Select all      Ctrl+A");
     timeAndDate=new MenuItem("Time/Date      F5");
-    font=new MenuItem("Font");
    
     edit.add(undo);
+    edit.addSeparator();
     edit.add(cut);
     edit.add(copy);
     edit.add(paste);
@@ -78,13 +70,18 @@ public class Notepad implements ActionListener{
     edit.addSeparator();
     edit.add(selAll);
     edit.add(timeAndDate);
-    edit.addSeparator();
-    edit.add(font);
+    
+
+//format
+  wordwrap=new MenuItem("Word Wrap");
+  font=new MenuItem("Font...");
+
+  format.add(wordwrap);
+  format.add(font);
 
     // view
     submenu=new Menu("zoom");
     statusbar =new MenuItem("Status bar");
-    wordwrap =new MenuItem("Word wrap");
     submenu.add(new MenuItem("zoom in        ctrl+plus"));
     submenu.add(new MenuItem("zoom out       ctrl+minus"));
     submenu.add(new MenuItem("Restore default zoom     ctrl+0"));
@@ -92,11 +89,27 @@ public class Notepad implements ActionListener{
 
     view.add(submenu);
     view.add(statusbar);
-    view.add(wordwrap);
+
+
+    //help
+     vHelp=new MenuItem("View Help");
+    sendFeed=new MenuItem("Send Feedback");
+    aboutNot=new MenuItem("About Notepad");
+
+    help.add(vHelp);
+    help.add(sendFeed);
+    help.addSeparator();
+    help.add(aboutNot);
+
+
+
+
 
     mbar.add(file);
     mbar.add(edit);
+    mbar.add(format);
     mbar.add(view);
+    mbar.add(help);
     frm.setLayout(new FlowLayout());
     frm.setMenuBar(mbar);
     frm.add(tr);

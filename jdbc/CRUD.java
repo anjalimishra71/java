@@ -69,7 +69,7 @@ static void updateStudent(){
         System.out.println("Enter Name\t Course");
          n=br.readLine();
          c=br.readLine();
-         String sql="update jdbc set name='"+n+"',course='"+c+"' where roll="+r;
+         String sql="update jdbc set name='"+n+"',cource='"+c+"',where id="+r;
          stmt=con.createStatement();
          int x=stmt.executeUpdate(sql);
          if(x>0)

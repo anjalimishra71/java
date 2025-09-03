@@ -119,6 +119,21 @@ frm.setVisible(true);
 frm.setLocationRelativeTo(null);
 }
 
+
+
+public boolean isStudentExist(int st_id){
+    boolean chk = false;
+    try {
+        String sql = "select * from student_info where id=" + st_id;
+        stmt = con.createStatement();
+        rs = stmt.executeQuery(sql);
+        chk = rs.next();
+    } catch(Exception e) {
+        System.out.println("Check Student Error: " + e);
+    }
+    return chk;
+}
+
 public void actionPerformed(ActionEvent ev)
 {
 String gen="",qual="",n,f,c,a,p,d,msg="",sql="";
@@ -190,72 +205,88 @@ e.printStackTrace();
 }
 
 
-
 if(ev.getSource() == b3)
 {
     roll = Integer.parseInt(JOptionPane.showInputDialog("Enter Roll No to Update:"));
-    try {
-        sql = "SELECT * FROM student_info WHERE id=" + roll;
-        stmt = con.createStatement();
-        rs = stmt.executeQuery(sql);
+    if(isStudentExist(roll)){
+        try {
+            String selectSQL = "SELECT * FROM student_info WHERE id=" + roll;
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(selectSQL);
 
-        if (rs.next()) {
-            t1.setText(rs.getString("name"));
-            t2.setText(rs.getString("father"));
-            tr.setText(rs.getString("address"));
-            t3.setText(rs.getString("phone"));
-            list.setSelectedItem(rs.getString("course"));
-            t4.setText(rs.getString("dob"));
+            if (rs.next()) {
+                t1.setText(rs.getString("name"));
+                t2.setText(rs.getString("father"));
+                tr.setText(rs.getString("address"));
+                t3.setText(rs.getString("phone"));
+                list.setSelectedItem(rs.getString("course"));
+                t4.setText(rs.getString("dob"));
 
-            if (rs.getString("gender").equalsIgnoreCase("Male"))
-                r1.setSelected(true);
-            else
-                r2.setSelected(true);
-
-            String q = rs.getString("qualification");
-            ch1.setSelected(q.contains("10th"));
-            ch2.setSelected(q.contains("12"));
-            ch3.setSelected(q.contains("Graduation"));
-
-            int confirm = JOptionPane.showConfirmDialog(frm, "Edit the data in form, then click OK to save changes.");
-            if(confirm == JOptionPane.YES_OPTION){
-
-                n = t1.getText();
-                f = t2.getText();
-                a = tr.getText();
-                p = t3.getText();
-                c = (String) list.getSelectedItem();
-                d = t4.getText();
-
-                gen = "";
-                qual = "";
-                if(r1.isSelected()) gen = "Male";
-                if(r2.isSelected()) gen = "Female";
-                if(ch1.isSelected()) qual += "10th ,";
-                if(ch2.isSelected()) qual += "12 ,";
-                if(ch3.isSelected()) qual += "Graduation";
-
-                sql = "UPDATE student_info SET name='" + n +
-                        "', father='" + f +
-                        "', gender='" + gen +
-                        "', address='" + a +
-                        "', phone='" + p +
-                        "', course='" + c +
-                        "', dob='" + d +
-                        "', qualification='" + qual +
-                        "' WHERE id=" + roll;
-                int x = stmt.executeUpdate(sql);
-                if (x > 0)
-                    JOptionPane.showMessageDialog(frm, "Record Updated Successfully!", "Info", JOptionPane.INFORMATION_MESSAGE);
+                String check=rs.getString("gender");
+                if (check=="Male")
+                    r1.setSelected(true);
                 else
-                    JOptionPane.showMessageDialog(frm, "Update Failed!", "Error", JOptionPane.ERROR_MESSAGE);
+                    r2.setSelected(true);
+
+
+               String q = rs.getString("qualification");
+               String[] parts = q.split(",");
+
+               for (int i = 0; i < parts.length; i++) {
+               String trimmed = parts[i].trim();
+                if (trimmed.equals("10th")) ch1.setSelected(true);
+                if (trimmed.equals("12")) ch2.setSelected(true);
+                if (trimmed.equals("graduation")) ch3.setSelected(true);
+               }
+              
+                int confirm = JOptionPane.showConfirmDialog(frm, "Edit data, then click OK to save changes.");
+                if(confirm == JOptionPane.YES_OPTION){
+
+                     n = t1.getText();
+                     f = t2.getText();
+                     a = tr.getText();
+                     p = t3.getText();
+                     c = (String) list.getSelectedItem();
+                     d = t4.getText();
+
+                     gen = "";
+                     qual = "";
+
+                    if(r1.isSelected()) gen = "Male";
+                    if(r2.isSelected()) gen = "Female";
+                    if(ch1.isSelected()) qual += "10th, ";
+                    if(ch2.isSelected()) qual += "12, ";
+                    if(ch3.isSelected()) qual += "Graduation";
+
+                    // qual = qual.trim();
+
+                    stmt.close();
+
+                   stmt = con.createStatement();
+                    String updateSQL = "UPDATE student_info SET " +
+                            "name='" + n + "', " +
+                            "father='" + f + "', " +
+                            "gender='" + gen + "', " +
+                            "address='" + a + "', " +
+                            "phone='" + p + "', " +
+                            "course='" + c + "', " +
+                            "dob='" + d + "',  "+
+                            "qualification='" + qual + "' " +
+                            "WHERE id=" + roll;
+
+                    int x = stmt.executeUpdate(updateSQL);
+                    if (x > 0)
+                        JOptionPane.showMessageDialog(frm, "Record Updated Successfully!", "Info", JOptionPane.INFORMATION_MESSAGE);
+                    else
+                        JOptionPane.showMessageDialog(frm, "Update Failed!", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
-        } else {
-            JOptionPane.showMessageDialog(frm, "Roll No Not Found!", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            System.out.println("Update Error: " + e);
+            e.printStackTrace();
         }
-    } catch (Exception e) {
-        System.out.println("Update Error: " + e);
-        e.printStackTrace();
+    } else {
+        JOptionPane.showMessageDialog(frm, "Roll No Not Found!", "Error", JOptionPane.ERROR_MESSAGE);
     }
 }
 
