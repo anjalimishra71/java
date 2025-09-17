@@ -8,9 +8,7 @@ public class SumOfSubarray{
         for(int j=i;j<numbers.length;j++){
             sum=0;
             for(int k=i;k<=j;k++){
-                sum+=numbers[k];
-                
-            
+                sum+=numbers[k];  
             }
             if(large<sum){
                     large=sum;

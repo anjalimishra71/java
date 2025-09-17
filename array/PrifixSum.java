@@ -12,7 +12,7 @@ public class PrifixSum{
       }
 
       for(int i=0;i<numbers.length;i++){
-        for(int j=i;j<numbers.length;j++){
+        for(int j=i;j<numbers.length;j++){]
             
             currSum= (i==0)?prefix[j]:prefix[j]-prefix[i-1];
              

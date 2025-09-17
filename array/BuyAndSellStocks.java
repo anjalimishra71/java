@@ -1,4 +1,3 @@
-
 public class BuyAndSellStocks{
     public static int buyAndSellStocks(int prices[]){
         int buyPrice=Integer.MAX_VALUE;
