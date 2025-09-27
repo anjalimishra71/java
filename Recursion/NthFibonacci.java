@@ -5,7 +5,7 @@ public class NthFibonacci{
         return nthFino(num-1)+nthFino(num-2); 
     }
     public static void main(String args[]){
-        int num=6;
+        int num=4;
         System.out.print(nthFino(num));
     }
 }
