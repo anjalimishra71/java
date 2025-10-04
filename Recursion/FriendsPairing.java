@@ -14,7 +14,7 @@ public class FriendsPairing{
 
         //totWays
         int totWays=fnm1+pairWays;
-        return totWays;      qollabb
+        return totWays;  
     }
     public static void main(String args[]){
       System.out.print(friendsPairingProb(3));
