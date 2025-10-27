@@ -1,4 +1,6 @@
-public class RecSearch{
+//remove nth child from end
+
+public class RemoveNthChild{
      public static class Node{
         int data;
         Node next;
@@ -33,31 +35,41 @@ public class RecSearch{
 
      }
     
-    public int helper(Node head, int key){ //O(n)
-        if(head==null){
-            return -1;
-        }
-        if(head.data==key){
-            return 0;
-        }
-        int idx=helper(head.next,key);
-        if(idx==-1){
-            return -1;
-        }
-        return idx+1;
-    }
+     public void deleteNthfromEnd(int n){
+       int size=0;
+       Node temp=head;
+       while(temp != null){
+        temp =temp.next;
+        size++;
+       }
 
-     public int recursiveSearch(int key){
-        return helper(head,key);
+        //removeFirst
+       if(n==size){
+        head=head.next;
+        return;
+       }
+
+       //size-n
+       int i=1;
+       int iToFind=size-n;
+       Node prev=head;
+       while(i<iToFind){
+        prev=prev.next;
+        i++;
+       }
+       prev.next=prev.next.next;
+       return;
      }
+    
     public static void main(String args[]){
-        RecSearch ll=new RecSearch();
+        RemoveNthChild ll=new RemoveNthChild();
         ll.addLast(1);
         ll.addLast(2);
         ll.addLast(3);
         ll.addLast(4);
         ll.print();
-        System.out.println(ll.recursiveSearch(4));
-        // System.out.println(ll.recursiveSearch(9));
+      ll.deleteNthfromEnd(3);
+        ll.print();
+
     }
 }
