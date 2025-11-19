@@ -11,8 +11,8 @@ public class LinkedList{
     public static Node head;
     public static Node tail;
     public static int size;
-    public void addFirst(int data){
-      
+  
+    public void addFirst(int data){    
         //step1=create new node
         Node newNode=new Node(data);
         size++;

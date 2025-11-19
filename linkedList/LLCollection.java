@@ -12,5 +12,9 @@ public class LLCollection{
         //  0->1->2
         System.out.println(ll);
     
+       //remove
+       ll.removeLast();
+       ll.removeFirst();
+       System.out.println(ll);
     }
 }
